@@ -7,6 +7,10 @@ namespace MdoDb.Organization
     {
         public DbSet<Employee> Employees { get; set; }
 
+        public OrgContext()
+            : base("MdoConnection")
+        { }
+
         static OrgContext()
         {
             Database.SetInitializer<OrgContext>(new OrgDbInitializer());
