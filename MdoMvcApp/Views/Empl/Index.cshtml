@@ -1,0 +1,24 @@
+﻿@using MdoTestKrv.Models.Empl
+@model  EmplSearch
+    
+@using (Html.BeginForm("Index", "Empl", new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.EditorFor(m => m.Filter.Name, new { htmlAttributes = new { @class = "form-control col-md-1", @placeholder = "Имя" } })
+    @Html.EditorFor(m => m.Filter.Title, new { htmlAttributes = new { @class = "form-control col-md-1", @placeholder = "Должность" } })
+    <input type="submit" value="Поиск" class="btn btn-primary" />
+}            
+    
+<p>@Html.ActionLink("Добавить", "Create")<p/>
+    
+@Html.Partial("_EmplList", Model.Empls)   
+
+
+<style>
+    p {
+        margin-top: 2em
+    }
+
+    .form-control{
+        margin-right: 10px
+    }
+</style>

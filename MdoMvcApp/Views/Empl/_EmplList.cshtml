@@ -1,0 +1,30 @@
+﻿@using MdoTestKrv.Models.Empl;
+@model IEnumerable<EmplItem>
+
+<table class="table">
+    <tr>
+        <th>ФИО</th>
+        <th>Год рождения</th>
+        <th>Должность</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>                    
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
