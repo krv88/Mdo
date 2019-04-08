@@ -17,7 +17,7 @@ namespace MdoDb.Organization
         }
     }
 
-    public class OrgDbInitializer : DropCreateDatabaseIfModelChanges<OrgContext>
+    public class OrgDbInitializer : DropCreateDatabaseAlways<OrgContext>
     {
         protected override void Seed(OrgContext context)
         {
