@@ -11,7 +11,7 @@ namespace MdoTestKrv.Controllers
 {
     public class EmplController : Controller
     {
-        private OrgContext db;               
+        private OrgContext db;
 
         public EmplController()
         {
@@ -19,15 +19,15 @@ namespace MdoTestKrv.Controllers
         }
 
         public ActionResult Index(EmplFilter filter = new EmplFilter())
-        {            
+        {
             var result = new EmplSearch()
             {
                 Filter = filter,
-                Empls =  GetEmpls(filter)
+                Empls = GetEmpls(filter)
             };
 
             ViewBag.Title = "Index";
-            return View(result);         
+            return View(result);
         }
 
         #region Create
@@ -37,7 +37,7 @@ namespace MdoTestKrv.Controllers
             ViewBag.Title = "Создание";
             return View("EmplDetails");
         }
-        
+
         [HttpPost]
         public ActionResult Create(EmplDetails details)
         {
@@ -48,7 +48,7 @@ namespace MdoTestKrv.Controllers
                 return RedirectToAction("Index");
             }
             catch
-            {                
+            {
                 return View("EmplDetails");
             }
         }
@@ -67,7 +67,7 @@ namespace MdoTestKrv.Controllers
             ViewBag.Title = "Редактирование";
             return View("EmplDetails", new EmplDetails(empl));
         }
-       
+
         [HttpPost]
         public ActionResult Edit(EmplDetails details)
         {
@@ -87,8 +87,8 @@ namespace MdoTestKrv.Controllers
         #region Delete
         [HttpGet]
         public ActionResult Delete(int id)
-        {            
-            var empl =  db.Employees.Find(id);            
+        {
+            var empl = db.Employees.Find(id);
             if (empl == null)
             {
                 return HttpNotFound();
@@ -103,7 +103,7 @@ namespace MdoTestKrv.Controllers
             try
             {
                 var empl = db.Employees.Find(details.Id);
-                db.Entry(empl).State = EntityState.Deleted;                
+                db.Entry(empl).State = EntityState.Deleted;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -119,7 +119,9 @@ namespace MdoTestKrv.Controllers
             IQueryable<Employee> query = db.Employees;
 
             if (!string.IsNullOrWhiteSpace(filter.Name))
-                query = query.Where(e => e.FirstName.Contains(filter.Name));
+                query = query.Where(e => e.FirstName.Contains(filter.Name)
+                    || e.LastName.Contains(filter.Name)
+                    || e.MiddleName.Contains(filter.Name));
 
             if (!string.IsNullOrWhiteSpace(filter.Title))
                 query = query.Where(e => e.Title.Contains(filter.Title));
